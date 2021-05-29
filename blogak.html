@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Blog Aparna Kulkarni </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 550px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height:auto;
+      position: relative;
+    }
+        
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;} 
+    }
+
+                    /*!
+                * Start Bootstrap - Blog Home (https://startbootstrap.com/template/blog-home)
+                * Copyright 2013-2020 Start Bootstrap
+                * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-blog-home/blob/master/LICENSE)
+                */
+                body {
+                padding-top: 56px;
+                }
+                ::-webkit-scrollbar {
+                    width: 7px;
+                }
+
+                ::-webkit-scrollbar-track {
+                    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                    border-radius: 10px;
+                }
+
+                ::-webkit-scrollbar-thumb {
+                    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+                    border-radius: 10px;
+                }
+
+  </style>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark  fixed-top" style="background-color: #173f5f;">
+    <div class="container">
+      <a href="index.html" class="pull-left"><img src="solarsurveiltransparent.png" alt="" height="40px" style="margin-right: 12px; margin-top: 2px;"></a>
+      <a class="navbar-brand" href="index.html">SOLAR SURVEIL</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="resources.html"> Back to Resources
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
+
+        <!-- Title -->
+        <h1 class="mt-4"> Grafana - InfluxDB Device parameter monitoring Dashboard</h1>
+
+        <!-- Author -->
+        <p class="lead">
+          by
+          <a href="https://www.linkedin.com/mwlite/in/aparna-kulkarni-7154041a3">Aparna Kulkarni</a>
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p>Posted on May 17, 2021</p>
+
+        <hr>
+
+        <!-- Preview Image -->
+        <img class="img-fluid rounded" src="inf.png" alt="">
+
+        <hr>
+
+        <!-- Post Content -->
+        <p class="lead"> Humans are often better to understand visual patterns presented with a graph or a chart and thus it becomes easy to analyse and monitor real time data. </p>
+        <hr>
+      
+        <h2>Node-RED</h2>  
+
+
+        <p>
+          Let’s start with Node-Red. It is a programming tool for wiring together hardware devices as it makes easy to wireflow using
+          nodes that can be deployed.
+        </p>
+
+        <p>
+          The data that is transmitted by MQTT  reaches the broker where Node-RED subscribed which is catched by MQTTin.
+        </p>
+
+        <p>
+          Function node is javascript editor that is used to fetch in required information from data that is being transmitted it helps
+          as one can get rid of unwanted information to avoid clutter of data and JSON node used to convert it into JSON format.
+          
+        </p>
+
+        <p>
+          One of the most important functions of Node-red is the debug window used to display data on Node-Red, it is found on the right hand side of the program, tab identified by a small bug.
+        </p>
+
+
+        <p>
+          Debug window allows to check the consistency of actual data and received data.The desired data is being injected in InfluxDB using InfluxDBout node.
+        </p>
+        
+        <p>
+          Given below is the Node-RED flow for for the above mentioned nodes.
+        </p>
+
+        <img class="img-fluid rounded" src="Nodered1.PNG" alt="">
+        <br>
+        <br>
+        <h5>Installation Guide : Node-RED</h5>
+        <a href="https://jithinsisaac.github.io/posts/aws_nodered/">Node-RED installation locally or on Cloud</a>
+        <br>
+        <hr>
+        <br>
+
+
+        <h2>InfluxDB</h2>
+
+        <p> 
+          InfluxDB is a time series database that captures and stores data captured by nodered in table format.
+          
+          </p>
+
+          <p> 
+          
+              It is optimized for fast, high-availability storage and retrieval of time series data.Data fetched from Node-RED is stored into
+              InfluxDB as to use this real time data for further analysis.
+              
+              </p>
+            
+            
+
+        <p>
+          We store energy parameters like Voltage, Current, Power Consumed,Energy Consumed and  Power Generated.
+          We also store node readings like SNR and RSSI. </p>
+
+        <p>
+          All the energy parameters and the node parameters are stored into a database called homemon1 within measurement named homemonfinal . 
+        </p> 
+        
+        <p>
+          Given below is the InfluxDB table homemonfinal in dashboard named homemon1.
+        </p>
+
+        <img class="img-fluid rounded" src="influxdb.PNG" alt="">
+        <br>
+        <h5>Installation Guide : InfluxDB OSS</h5>
+        <a href="https://jithinsisaac.github.io/posts/aws_influxdb/">InfluxDB OSS installation locally or on Cloud</a>
+        <br>
+       <hr> 
+       <br>
+      
+
+
+        <h2>Grafana</h2>
+
+        <p> 
+          Grafana is multi platform open source analytics for interactive visulization of web applications that is used for visual representation of real-time data for application analytics.
+          
+          </p>
+
+        <p>It provides charts, graphs, and alerts for the web when connected to data source which in our case is InfluxDB.
+          </p>
+
+        <p>
+          
+It can be expanded using plug in system and complex dashboard can be created using query builders. Grafana is divided into a front end and back end, written in TypeScript and Go, respectively.
+        
+<p>
+  Once datasource is added we use Graph,Gauge,Time Series,Bar gauge to display the data where we compared AC and DC power,Displayed last occured value of RSSI,SNR,Plot graph for functionality of panel.NOD1AC,NOD2AC,NOD3AC,NOD1SOL,NOD2SOL,NOD3SOL were the dashboard created for different nodes.        
+ 
+          </p>
+  
+          <p>
+            So let’s see some  Grafana commands that we have used in the dashboard. 
+          </p>
+
+          <ul>
+            <li>Creating Gauge to compare AC and Dc Power</li>
+            <br>
+            <div class="card">
+              <div class="card-body bg-light">
+                <p>SELECT mean("Pgen") AS "DC POWER", mean("Power") AS "AC POWER" FROM "homemonfinal" WHERE ("NodeID" = 'nod2sol') AND $timeFilter GROUP BY time($__interval) fill(null)</p>
+              </div>
+            </div>
+
+            <br>
+
+            <li>Creating Graph to check the functionality of panel</li>
+            <br>
+            <div class="card">
+              <div class="card-body bg-light">
+                <p>SELECT min("Current") AS "Functional(Non zero Current)" FROM "homemonfinal" WHERE ("NodeID" = 'nod2sol') AND $timeFilter GROUP BY time($__interval) fill(none)</p>
+              </div>
+            </div>
+
+            <br>
+
+        <p>
+           Below is the Grafana dashboard for NOD1MU.  
+        </p>
+
+        <img class="img-fluid rounded" src="grafana1.PNG" alt="">
+        <p>
+          Below is the Grafana dashboard for NOD1SOL.
+       </p>
+       <img class="img-fluid rounded" src="grafana2.PNG" alt="">
+        <br>
+        <h5>Installation Guide : Grafana</h5>
+        <a href="https://grafana.com/docs/grafana/latest/installation/debian/">Grafana installation locally or on Cloud</a>
+        <br>
+       <hr> 
+       <br>
+
+        <br>
+
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Search Widget
+        <div class="card my-4">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-append">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Blogs</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">ATM90E26</a>
+                  </li>
+                  <li>
+                    <a href="#">Node-RED</a>
+                  </li>
+                  <li>
+                    <a href="#">Bootstrap 4</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">JavaScript</a>
+                  </li>
+                  <li>
+                    <a href="#">CSS</a>
+                  </li>
+                  <li>
+                    <a href="#">Tutorials</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Widget -->
+        <!-- <div class="card my-4">
+          <h5 class="card-header">Side Widget</h5>
+          <div class="card-body">
+            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+          </div>
+        </div> -->
+
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Solar Surveil 2021</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

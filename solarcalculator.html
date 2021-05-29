@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Solar Calculator</title>
+  </head>
+  <body>
+    <!-- As a heading -->
+    <script>
+      function  calculator()
+      {
+        //taking the power rating inputs value from user 
+        var p1 = parseInt(document.getElementById("r1").value);
+        var p2 = parseInt(document.getElementById("r2").value);
+        var p3 = parseInt(document.getElementById("r3").value);
+        var p4 = parseInt(document.getElementById("r4").value);
+        var p5 = parseInt(document.getElementById("r5").value);
+        var p6 = parseInt(document.getElementById("r6").value);
+        var p7 = parseInt(document.getElementById("r7").value);
+
+        //taking the quantity inputs value from the user 
+        var q1 = parseInt(document.getElementById("q1").value);
+        var q2 = parseInt(document.getElementById("q2").value);
+        var q3 = parseInt(document.getElementById("q3").value);
+        var q4 = parseInt(document.getElementById("q4").value);
+        var q5 = parseInt(document.getElementById("q5").value);
+        var q6 = parseInt(document.getElementById("q6").value);
+        var q7 = parseInt(document.getElementById("q7").value);
+
+
+        //taking the hours inputs value from the user
+        var h1 = parseInt(document.getElementById("h1").value);
+        var h2 = parseInt(document.getElementById("h2").value);
+        var h3 = parseInt(document.getElementById("h3").value);
+        var h4 = parseInt(document.getElementById("h4").value);
+        var h5 = parseInt(document.getElementById("h5").value);
+        var h6 = parseInt(document.getElementById("h6").value);
+        var h7 = parseInt(document.getElementById("h7").value);
+
+        //taking the hemisphere inputs value from the user
+        var latitude =  parseInt(document.getElementById("latitude").value);
+        var longitude =  parseFloat(document.getElementById("longitude").value);
+        var hemisphere = document.getElementById("hemisphere").value;
+        var psh =  parseInt(document.getElementById("psh").value);
+
+        //taking the panelrating batterysize and batteryvoltege inputs value from the user
+        var panelrating = parseInt(document.getElementById("panelrating").value); 
+        var batterysize= parseInt(document.getElementById("batterysize").value);
+        var batteryvoltage= parseInt(document.getElementById("batteryvoltage").value);
+
+        //calculating the total power consumed
+        var power1 = (p1*q1)+(p2*q2)+(p3*q3)+(p4*q4)+(p5*q5)+(p6*q6)+(p7*q7);
+
+        //calculating the total energy consumed
+        var energy1 = (p1*q1*h1)+(p2*q2*h2)+(p3*q3*h4)+(p4*q4*h4)+(p5*q5*h5)+(p6*q6*h6)+(p7*q7*h7);
+        //Get the surplus energy
+        var totalenergyrequired = (energy1 * 1.3);
+	    	var totalenergyrequired= totalenergyrequired.toFixed(2);
+		
+        //taking peak current hours or peak sun hours to be 4
+        
+        //Surplus power required
+        var power2 = totalenergyrequired/psh;
+        //Finding the no of panels 
+        var noofpanels = Math.ceil(power2/panelrating); //check this with sir 
+
+        // Calculating the final power generated and energy genarated
+        var power = noofpanels * panelrating;
+        var energy = power * psh;
+
+        // Calculating the batterycapacity and no of batteries used round function here 
+        var batterycapacity = (energy/(batteryvoltage*0.85))*2;
+		    var batterycapacity= batterycapacity.toFixed(2);
+		
+        var noofbatteries =  Math.ceil(batterycapacity/batterysize); //check this with sir 
+
+        var currentratingofcc1 = power/batteryvoltage; //withpout loss
+		    var currentratingofcc1= currentratingofcc1.toFixed(2);
+				
+        var currentratingofcc = currentratingofcc1*1.2;      //with loss
+		    var currentratingofcc= currentratingofcc.toFixed(2);
+        //need to add a switch case or if staement here for printing the market availablity 
+        //need to add the switch case for finding the closest value for inverter.
+
+
+        //Printhing the calculations on the page printing total 10 items 
+        document.getElementById("oppowerconsumed").innerHTML =  power1 + "\t W";
+        document.getElementById("openergyconsumed").innerHTML =  energy1 + "\t Wh";
+        document.getElementById("openergyrequired").innerHTML =  totalenergyrequired + "\t Wh";
+          
+        document.getElementById("oppanelrating").innerHTML =   panelrating + "\t W";
+        document.getElementById("opnoofpanels").innerHTML =  noofpanels + "\t";
+
+        if (hemisphere == "Northern")
+        {
+          document.getElementById("opplacement").innerHTML = " South facing";
+        }
+        else
+        {
+          document.getElementById("opplacement").innerHTML = " North Facing";
+        }
+
+        document.getElementById("opangle").innerHTML = latitude + "\t ";
+
+        document.getElementById("oppsh").innerHTML =   psh + "\t ";
+        document.getElementById("opbatterysizeinput").innerHTML =  batterysize + "\t Ah";
+        document.getElementById("opbatteryvoltageinput").innerHTML =  batteryvoltage + "\t V";
+        document.getElementById("opbatterycapacity").innerHTML =  batterycapacity + "\t Ah";
+        document.getElementById("opnoofbatteries").innerHTML =   noofbatteries + "\t ";
+
+        document.getElementById("opcurrentcc1").innerHTML =   currentratingofcc1 + "\t A";
+        document.getElementById("opcurrentcc").innerHTML =   currentratingofcc + "\t A";
+        document.getElementById("opvoltagecc").innerHTML =   batteryvoltage + "\t V";
+
+        document.getElementById("oppowerinverter").innerHTML =  power1 + "\t W ";
+        document.getElementById("opvoltageinverter").innerHTML =  batteryvoltage + "\t V DC and 230V 50Hz AC";
+
+      }
+      
+
+
+    </script>
+    <nav class="navbar navbar-expand-lg navbar-dark shadow" style="background-color: #173f5f;">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a href="index.html" class="pull-left"><img src="solarsurveiltransparent.png" alt="" height="40px" style="margin-right: 12px; margin-top: 2px;"></a>
+      <a class="navbar-brand" href="index.html">SOLAR SURVEIL</a>
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Calculator <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="view_item2.php">Get Components</a>
+        </li>
+      </ul>
+      <span class="navbar-text text-white">
+        Solar Surveil Team
+      </span>
+       </div>
+    </nav>
+    <br>
+    <div class="image">
+      <div class="container">
+        <div class="row-header text-white" style="background-color: #173f5f;">
+            <h1 class="col-12"><span class="fa fa-pencil"></span> Design Flow</h1>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+              <div class="card shadow" style="height: 200px;">
+                <div class="card-body bg-light">
+                  <h5 class="card-title text-white text-center" style="background-color: #20639b;">Step 1</h5>
+                  <p class="card-text">Determine daily energy requirement based on individual appliance use. </p>
+                  </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="card shadow" style="height: 200px;">
+                <div class="card-body bg-light">
+                  <h5 class="card-title  text-white text-center" style="background-color: #20639b;">Step 2</h5>
+                  <p class="card-text">Select Panel Specification and get the total number of Panels. </p>
+                  </div>
+              </div>
+            </div>
+            <div class="col-sm">
+                <div class="card shadow" style="height: 200px;">
+                  <div class="card-body bg-light">
+                    <h5 class="card-title  text-white text-center" style="background-color: #20639b;">Step 3</h5>
+                    <p class="card-text ">Calculate total Battery capacity considering  daily consumption and back-up time.</p>
+                    </div>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="card shadow" style="height: 200px;">
+                  <div class="card-body bg-light">
+                    <h5 class="card-title text-white text-center" style="background-color: #20639b;">Step 4</h5>
+                    <p class="card-text"> Obtain the current rating of Charge controller based on power generation.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm">
+                  <div class="card shadow" style="height: 200px;">
+                    <div class="card-body bg-light">
+                      <h5 class="card-title text-white text-center" style="background-color: #20639b;">Step 5</h5>
+                      <p class="card-text">Decide the Capacity of the Invertor keeping scalability in mind.</p>
+                    </div>
+                  </div>
+                </div>
+          </div>
+            <br>
+            <div> 
+              <div class=" card card-block shadow">
+                <h3 class="card-header text-white" style="background-color: #173f5f;"><span class="fa fa-calculator"></span> E-Solar Calculator</h3>
+                <div class="card-body">
+                   <div class="row">
+                     <div class="col-sm">
+                        <div class="card shadow">
+                          <div class>
+                            <h5 class="card-header  text-white" style="background-color: #20639b;">Instructions</h5>
+                            <div class="card-body">
+                              <p class="card-text">1. Rating should be in Watts</p>
+                              <p class="card-text">2. Hours stands for number of hours you will be running the appliance</p>
+                              <p class="card-text">3. Your location will determine the angle at which the panel should be placed </p>
+                              <p class="card-text">4. Hemisphere decides the direction your panel faces</p>
+                              <p class="card-text">5. Panel and Battery specifications depend on local availiabilty </p>
+                              <p class="card-text">6. A battery volatge of 24 V is recommended for system having capacity greater than 1KW</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <div class="card shadow">
+                          <h5 class="card-header  text-white" style="background-color: #20639b;">System requirements</h5>
+                          <div class="card-body">
+                            <h5 class="card-title">Please Provide load details </h5>
+                            <form>
+                              <div class="form-row">
+                                <div class="form-group col-md-4">
+                                  <label for="inputCity">Appliance</label>
+                                    <select id="app1" class="form-control">
+                                    <option selected>LED Bulb</option>
+                                    <option>CFL Bulb</option>
+                                    <option>LED Tubelight</option>
+                                    <option>CFL Tubelight</option>
+                                    <option>Fan</option>
+                                    <option>Fan (BLDC)</option>
+                                    <option>Laptop/PC</option>
+                                    <option>TV</option>
+                                    <option>Fridge</option>
+                                    <option>Other</option>
+                                  </select> 
+                                </div>
+                                <div class="form-group col-md-2">
+                                  <label for="inputZip">Rating (W)</label>
+                                  <input type="number" class="form-control" id="r1" value="0">
+                                </div>
+                                <div class="form-group col-md-3">
+                                  <label for="inputState">Quantity</label>
+                                  <select id="q1" class="form-control">
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                  </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                  <label for="inputState">Hours</label>
+                                  <select id="h1" class="form-control">
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="form-row">
+                                <div class="form-group col-md-4">
+                                  <label for="inputCity">Appliance</label>
+                                    <select id="app2" class="form-control">
+                                    <option>LED Bulb</option>
+                                    <option>CFL Bulb</option>
+                                    <option  selected>LED Tubelight</option>
+                                    <option>CFL Tubelight</option>
+                                    <option>Fan</option>
+                                    <option>Fan (BLDC)</option>
+                                    <option>Laptop/PC</option>
+                                    <option>TV</option>
+                                    <option>Fridge</option>
+                                    <option>Other</option>
+                                  </select> 
+                                </div>
+                                <div class="form-group col-md-2">
+                                  <label for="inputZip">Rating (W)</label>
+                                  <input type="number" class="form-control" id="r2" value="0">
+                                </div>
+                                <div class="form-group col-md-3">
+                                  <label for="inputState">Quantity</label>
+                                  <select id="q2" class="form-control">
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                  </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                  <label for="inputState">Hours</label>
+                                  <select id="h2" class="form-control">
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="form-row">
+                                <div class="form-group col-md-4">
+                                  <label for="inputCity">Appliance</label>
+                                    <select id="app3" class="form-control">
+                                    <option>LED Bulb</option>
+                                    <option>CFL Bulb</option>
+                                    <option>LED Tubelight</option>
+                                    <option>CFL Tubelight</option>
+                                    <option selected>Fan</option>
+                                    <option>Fan (BLDC)</option>
+                                    <option>Laptop/PC</option>
+                                    <option>TV</option>
+                                    <option>Fridge</option>
+                                    <option>Other</option>
+                                  </select> 
+                                </div>
+                                <div class="form-group col-md-2">
+                                  <label for="inputZip">Rating (W)</label>
+                                  <input type="number" class="form-control" id="r3" value="0">
+                                </div>
+                                <div class="form-group col-md-3">
+                                  <label for="inputState">Quantity</label>
+                                  <select id="q3" class="form-control">
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                  </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                  <label for="inputState">Hours</label>
+                                  <select id="h3" class="form-control">
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="form-row">
+                                <div class="form-group col-md-4">
+                                  <label for="inputCity">Appliance</label>
+								                    <select id="app4" class="form-control">
+									                    	<option>LED Bulb</option>
+                                        <option>CFL Bulb</option>
+                                        <option>LED Tubelight</option>
+                                        <option>CFL Tubelight</option>
+                                        <option>Fan</option>
+                                        <option>Fan (BLDC)</option>
+                                        <option selected>Laptop/PC</option>
+                                        <option>TV</option>
+                                        <option>Fridge</option>
+                                        <option>Other</option>
+									                  </select> 
+                                </div>
+                                <div class="form-group col-md-2">
+                                  <label for="inputZip">Rating (W)</label>
+                                  <input type="number" class="form-control" id="r4" value="0">
+                                </div>
+                                <div class="form-group col-md-3">
+                                  <label for="inputState">Quantity</label>
+                                  <select id="q4" class="form-control">
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                  </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                  <label for="inputState">Hours</label>
+                                  <select id="h4" class="form-control">
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="form-row">
+                                <div class="form-group col-md-4">
+                                  <label for="inputCity">Appliance</label>
+                                      <select id="app5" class="form-control">
+                                      <option>LED Bulb</option>
+                                      <option>CFL Bulb</option>
+                                      <option>LED Tubelight</option>
+                                      <option>CFL Tubelight</option>
+                                      <option>Fan</option>
+                                      <option>Fan (BLDC)</option>
+                                      <option>Laptop/PC</option>
+                                      <option selected>TV</option>
+                                      <option>Fridge</option>
+                                      <option>Other</option>
+                                    </select> 
+                                </div>
+                                <div class="form-group col-md-2">
+                                  <label for="inputZip">Rating (W)</label>
+                                  <input type="number" class="form-control" id="r5" value="0">
+                                </div>
+                                <div class="form-group col-md-3">
+                                  <label for="inputState">Quantity</label>
+                                  <select id="q5" class="form-control">
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                  </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                  <label for="inputState">Hours</label>
+                                  <select id="h5" class="form-control">
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+
+                                  </select>
+                                
+                                </div>
+                                <div class="form-group col-md-4">
+                                  <label for="inputCity">Appliance</label>
+                                      <select id="app6" class="form-control">
+                                      <option>LED Bulb</option>
+                                      <option>CFL Bulb</option>
+                                      <option>LED Tubelight</option>
+                                      <option>CFL Tubelight</option>
+                                      <option>Fan</option>
+                                      <option>Fan (BLDC)</option>
+                                      <option>Laptop/PC</option>
+                                      <option>TV</option>
+                                      <option selected>Fridge</option>
+                                      <option>Other</option>
+                                       </select> 
+                                </div>
+                                  <div class="form-group col-md-2">
+                                    <label for="inputZip">Rating (W)</label>
+                                    <input type="number" class="form-control" id="r6" value="0">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label for="inputState">Quantity</label>
+                                    <select id="q6" class="form-control">
+                                      <option selected>1</option>
+                                      <option>2</option>
+                                      <option>3</option>
+                                      <option>4</option>
+                                      <option>5</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label for="inputState">Hours</label>
+                                    <select id="h6" class="form-control">
+                                      <option selected>1</option>
+                                      <option>2</option>
+                                      <option>3</option>
+                                      <option>4</option>
+                                      <option>5</option>
+                                      <option>6</option>
+                                      <option>7</option>
+                                      <option>8</option>
+                                      <option>9</option>
+                                      <option>10</option>
+  
+                                    </select>
+                                  </div>
+                                <div class="form-group col-md-4">
+                                  <label for="inputCity">Appliance</label> 
+                                    <select id="app7" class="form-control">
+                                    <option>LED Bulb</option>
+                                    <option>CFL Bulb</option>
+                                    <option>LED Tubelight</option>
+                                    <option>CFL Tubelight</option>
+                                    <option>Fan</option>
+                                    <option>Fan (BLDC)</option>
+                                    <option>Laptop/PC</option>
+                                    <option>TV</option>
+                                    <option>Fridge</option>
+                                    <option selected>Other</option>
+                                  </select> 
+                                </div>
+                                  <div class="form-group col-md-2">
+                                    <label for="inputZip">Rating (W)</label>
+                                    <input type="number" class="form-control" id="r7" value="0">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label for="inputState">Quantity</label>
+                                    <select id="q7" class="form-control">
+                                      <option selected>1</option>
+                                      <option>2</option>
+                                      <option>3</option>
+                                      <option>4</option>
+                                      <option>5</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label for="inputState">Hours</label>
+                                    <select id="h7" class="form-control">
+                                      <option selected>1</option>
+                                      <option>2</option>
+                                      <option>3</option>
+                                      <option>4</option>
+                                      <option>5</option>
+                                      <option>6</option>
+                                      <option>7</option>
+                                      <option>8</option>
+                                      <option>9</option>
+                                      <option>10</option>
+  
+                                    </select>
+                                  </div>
+                                  <h5 class="card-title">Please provide Panel and Battery specifications</h5>
+                                <div class="form-row col-12">
+                                  <div class="form-group col-sm-2">
+                                    <label for="ex3">Latitude </label>
+                                    <input class="form-control" id="latitude" type="number" value="0">
+  
+                                  </div>
+                                  <div class="form-group col-sm-2">
+                                    <label for="ex3">Longitude </label>
+                                    <input class="form-control" id="longitude" type="number" value="0">
+  
+                                  </div>
+
+                                  <div class="form-group col-sm-5">
+                                    <label for="inputState">Hemisphere located in?</label>
+                                    <select id="hemisphere" class="form-control">
+                                      <option selected>Northern</option>
+                                      <option>Southern</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group col-sm-3">
+                                    <label for="ex3">Sunshine Hours </label>
+                                    <input class="form-control" id="psh" type="number" value="1">
+  
+                                  </div>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                  <label for="inputState">Panel rating(W)</label>
+                                  <select id="panelrating" class="form-control">
+                                    <option selected>50</option>
+									                  <option>100</option>
+                                    <option>150</option>
+                                    <option>180</option>
+                                    <option>250</option>
+                                    <option>300</option>
+                                    <option>350</option>
+                                  </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                  <label for="inputState">Battery Rating (Ah)</label>
+                                  <select id="batterysize" class="form-control">
+                                    <option selected>100</option>
+									                  <option>120</option>
+                                    <option>150</option>
+                                    <option>200</option>
+                                  </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                  <label for="inputState">Battery Voltage</label>
+                                  <select id="batteryvoltage" class="form-control">
+                                    <option selected>12</option>
+                                    <option>24</option>
+                                  </select>
+                                </div>
+                                
+                              </div>
+                            </form>
+							              <p>Note: Panels above 200W are rated at 24V</p>
+                            <a href="#" class="btn text-white rounded-pill" onclick="calculator()" style="background-color: #3caea3;">Calculate</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="card text-white mb-3  shadow">
+                          <h5 class="card-header" style="background-color: #20639b;"><span class="fa fa-arrow-circle-o-down"></span> Result</h5>
+                          <div class="card-body  text-dark scroll scrollable-element" style="background-color:#F7F8F6; max-height: 965px;" >
+                            <h5 class="card-title">Power consumed</h5>
+                            <button type="button" class="btn  button1 " style="background-color: #3caea3;"><p class="card-text text-white" id="oppowerconsumed" ></p></button>
+                            <h5 class="card-title">Energy consumed</h5>
+                            <button type="button" class="btn  button1" style="background-color: #3caea3;"><p class="card-text text-white" id="openergyconsumed"></p></button> 
+                            <h5 class="card-title">Panel Efficiency</h5>
+                            <button type="button" class="btn button1" style="background-color: #3caea3;"><p class="card-text text-white" id="openergyconsumed"> 70%</p></button>
+                            <h5 class="card-title">Total Energy required</h5>
+                            <button type="button" class="btn button1" style="background-color: #3caea3;"><p class="card-text text-white" id="openergyrequired"></p></button>
+                            <h5 class="card-title">Total sunshine hourse</h5>
+                            <button type="button" class="btn button1" style="background-color: #3caea3;"><p class="card-text text-white" id="oppsh"></p></button>
+                            <hr style="background-color: black;">
+                            <h5 class="card-title">Selected Panel wattage</h5>
+                            <button type="button" class="btn bg-dark button1"><p class="card-text" id="oppanelrating" style="color:white"></p></button>
+                            <h5 class="card-title">No of Panels required</h5>
+                            <button type="button" class="btn bg-dark button1"><p class="card-text" id="opnoofpanels" style="color:white"></p></button>
+                            <h5 class="card-title">Placement of panels</h5>
+                            <button type="button" class="btn bg-dark button1"><p class="card-text" id="opplacement" style="color:white"></p></button>
+                            <h5 class="card-title">Angle of panels from ground</h5>
+                            <button type="button" class="btn bg-dark button1"><p class="card-text" id="opangle" style="color:white"></p></button>
+                            <hr style="background-color: black;">
+                            <h5 class="card-title">Lead acid battery effficiency</h5>
+                            <button type="button" class="btn button1" style="background-color: #3caea3;"><p class="card-text text-white" id="">85%</p></button>
+                            <h5 class="card-title">Lead acid DOD</h5>
+                            <button type="button" class="btn button1" style="background-color: #3caea3;"><p class="card-text text-white" id="">50%</p></button>
+                            <h5 class="card-title">Selected battery capacity</h5>
+                            <button type="button" class="btn button1" style="background-color: #3caea3;"><p class="card-text text-white" id="opbatterysizeinput"></p></button>
+                            <h5 class="card-title">Selected battery voltage</h5>
+                            <button type="button" class="btn button1" style="background-color: #3caea3;"><p class="card-text text-white" id="opbatteryvoltageinput"></p></button>
+                            <h5 class="card-title">Battery capacity required</h5>
+                            <button type="button" class="btn button1" style="background-color: #3caea3;"><p class="card-text text-white" id="opbatterycapacity"></p></button>
+                            <h5 class="card-title">No of Batteries</h5>
+                            <button type="button" class="btn button1" style="background-color: #3caea3;"><p class="card-text text-white" id="opnoofbatteries"></p></button>
+                            <hr style="background-color: black;">
+                            <h5 class="card-title">Current rating charge controller</h5>
+                            <button type="button" class="btn bg-dark button1"><p class="card-text text-white" id="opcurrentcc1"></p></button>
+                            <h5 class="card-title">Current rating charge controller with extra leverage</h5>
+                            <button type="button" class="btn bg-dark button1"><p class="card-text text-white" id="opcurrentcc"></p></button>
+                            <h5 class="card-title">Voltage rating of charge controller</h5>
+                            <button type="button" class="btn bg-dark button1"><p class="card-text text-white" id="opvoltagecc"></p></button>
+                            <hr style="background-color: black;">
+                            <h5 class="card-title">Power rating of inverter</h5>
+                            <button type="button" class="btn button1" style="background-color: #3caea3;"><p class="card-text text-white" id="oppowerinverter"></p></button>
+                            <h5 class="card-title">Voltage rating  of inverter</h5>
+                            <button type="button" class="btn button1" style="background-color: #3caea3;"><p class="card-text text-white" id="opvoltageinverter"></p></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>     
+                   </div>        
+                </div>
+              </div>  
+            </div>  
+         </div>
+        </div>   
+
+          <footer class="footer m-3" style="    background-color: #173f5f;         color: white;">
+            <br>
+              <div class="container">
+                  <div class="row">             
+                      <div class="col-4 offset-1 col-sm-2">
+                          <h5>Links</h5>
+                          <ul class="list-unstyled">
+                              <li><a class="text-white" href="solarcalculator.html">Calculator</a></li>
+                              <li><a class="text-white" href="view_item2.php">Get Components</a></li>
+                              <li><a href="#"></a></li>
+                              <li><a href="#"></a></li>
+                          </ul>
+                      </div>
+                      <div class="col-7 col-sm-5">
+                          <h5>Our Address</h5>
+                          <address>
+                              Premier Automobiles Road<br>
+                              Opp. HDIL Premier Exotica,<br>
+                              Kurla, w, Maharashtra 400070<br>
+                            <span class="fa fa-phone fa-lg"></span>:  022 2504 2018<br>
+                            <span class="fa fa-envelope fa-lg"></span>: <a href="mailto:solnex.dbit@gamil.com">solarsurveildbit.in</a>
+                        </address>
+                      </div>
+                      <div class="col-12 col-sm-4 align-self-center">
+                          <div class="text-center">
+                              <a class="btn btn-social-icon btn-google bg-light" href="http://google.com/+"><span class="fa fa-google-plus fa-lg"></span></a>
+                              <a class="btn btn-social-icon btn-facebook bg-light" href="http://www.facebook.com/profile.php?id="><span class="fa fa-facebook fa-lg"></span></a>
+                              <a class="btn btn-social-icon btn-linkdin bg-light" href="http://www.linkedin.com/in/"><span class="fa fa-linkedin fa-lg"></span></a>
+                              <a class="btn btn-social-icon btn-twitter bg-light"href="http://twitter.com/"><span class="fa fa-twitter fa-lg"></span></a>
+                              <a class="btn btn-social-icon btn-google bg-light" href="http://youtube.com/"><span class="fa fa-youtube fa-lg"></span></a>
+                              <a class="btn btn-social-icon bg-light" href="mailto:"><span class="fa fa-envelope-o fa-lg"></span></a>
+                          </div>
+                      </div>
+                </div>
+                <div class="row justify-content-center">             
+                      <div class="col-auto">
+                          <p>© Copyright 2020 Solar Surveil TEAM</p>
+                      </div>
+                </div>
+              </div>
+          </footer>         
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
+</html>
