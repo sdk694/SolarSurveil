@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Blog Adish Sthalekar </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 550px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height:auto;
+      position: relative;
+    }
+        
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;} 
+    }
+
+                    /*!
+                * Start Bootstrap - Blog Home (https://startbootstrap.com/template/blog-home)
+                * Copyright 2013-2020 Start Bootstrap
+                * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-blog-home/blob/master/LICENSE)
+                */
+                body {
+                padding-top: 56px;
+                }
+                ::-webkit-scrollbar {
+                    width: 7px;
+                }
+
+                ::-webkit-scrollbar-track {
+                    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                    border-radius: 10px;
+                }
+
+                ::-webkit-scrollbar-thumb {
+                    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+                    border-radius: 10px;
+                }
+
+  </style>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark  fixed-top" style="background-color: #173f5f;">
+    <div class="container">
+      <a href="index.html" class="pull-left"><img src="solarsurveiltransparent.png" alt="" height="40px" style="margin-right: 12px; margin-top: 2px;"></a>
+      <a class="navbar-brand" href="index.html">SOLAR SURVEIL</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="resources.html"> Back to Resources
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
+
+        <!-- Title -->
+        <h1 class="mt-4">Single Phase AC Monitoring using ESP32 and ATM90E26</h1>
+
+        <!-- Author -->
+        <p class="lead">
+          by
+          <a href="https://in.linkedin.com/in/adish-sthalekar-8a3b1b190">Adish Sthalekar</a>
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p>Posted on April 29, 2021</p>
+
+        <hr>
+
+        <!-- Preview Image -->
+        <img class="img-fluid rounded" src="adishblogcover.png" alt="">
+
+        <hr>
+
+        <!-- Post Content -->
+        <p class="lead">Here we shall look at how we used an ATM90E26 paired with an ESP32 Wifi module for single phase AC monitoring. This setup was designed to be implemented in urban areas taking advantage of the good internet connectivity available here. </p>
+        <hr>
+        <h2>ATM90E26</h2>
+
+          <p> 
+            The ATM90E26 is a high-performance energy metering device for single-phase two-wire, single-phase three-wire or anti-tampering active and reactive energy meters. With the measurement function, the ATM90E26 can also be used in power instruments which need to measure voltage, current, etc.</p>
+
+          <p>
+            The ATM90E26 is capable of communicating with peripheral devices using either SPI or the UART communication. For our use, we shall be using the ATM90E26 in UART mode. </p>
+
+          <p>
+           The ATM90E26 has an accuracy of 0.1% for active energy and 0.2% for reactive energy over a dynamic range of 5000:1.
+          </p> 
+          
+          <p>
+            The ATM90E26 will calculate the different AC parameters based on data recieved from two inputs. These shall consist of the input coming from the SCT013 current transformer that is clamped onto the live AC current carrying line, and a 9V AC supply coming from a voltage transformer. The latter shall be used for voltage sampling as well as powering the ATM90E26 board after being downconverted to 3.3V.  
+          </p>
+
+          <img src="atm90.png" alt="ATM90 image" height="200">
+          <br>
+
+          <br>
+          <h5>ATM90E26 application notes:</h5>
+          <a href="http://ww1.microchip.com/downloads/en/AppNotes/Atmel-46102-SE-M90E26-ApplicationNote.pdf">Atmel Documentation</a>
+          <br>
+         <hr> 
+         <br>
+        <h2>ESP32 Wifi Module</h2>  
+
+
+        <p>
+            ESP32 is a series of low-cost, low-power system on a chip microcontrollers with integrated Wi-Fi and dual-mode Bluetooth. ESP32 is created and developed by Espressif Systems, a Shanghai-based Chinese company, and is manufactured by TSMC using their 40 nm process. It is a successor to the ESP8266 microcontroller.
+        </p>
+
+        <p>
+         Once the AC parameters such as current, voltage,energy, and power have been calculated by the ATM90E26, it shall transmit the data to the ESP32 module using UART communication.  
+        </p>
+
+        <p>
+          The ESP32 shall then transmit this data to the Node-RED broker usning the MQTT protocol over a Wifi network. The time delay with which the user wants the ESP32 to transmit the data can be predefined as per the users needs.
+        </p>
+
+        <img src="adishesp.jpg" alt="esp32.webp" height="300">
+
+      
+
+        
+        <br>
+        <br>
+        <h5>ESP32 module</h5>
+        <a href="https://www.espressif.com/en/products/socs/esp32">Espressif Website</a>
+        <br>
+        <hr>
+        <br>
+        <h2>First Iteration of the development board </h2>
+
+        <p>
+          The first iteration of our ATM90E26 + ESP32 Single Phase AC Monitoring system consisted of a PCB designed by us containing only the ATM90E26 chip along with the peripheral connectors.  
+        </p>
+
+        <p>
+          This board was then paired with an external ESP32 module for transmitting the data. It served as a testbench for us.
+          Once we obtained accurate results from this system, we moved on to creating the second iteration of this system.
+        </p>
+
+
+        <img src="atm90_3d_phase1.JPG" alt="First iteration of board" height="300">
+        <img src="atm90_pcb.jpeg" alt="First iteration of board" style="position: absolute; left: 380px;"height="300">
+        
+        <br>
+        <hr>
+        <br>
+
+        <h2>Second Iteration of the development board</h2>
+        <p>
+          Once we had confirmed the accurate working of our first iteration, we went ahead with the designing of our second iteration. This second iteration would consist of a hybrid board containing both the ATM90E26 na d ESP32 module. 
+        </p>
+        <p>
+         For this we designed a breakout board of the ESP32 in order to efficiently interface, it on the same PCB, with the ATM90E26 module. 
+        </p>
+
+        <p>
+         <p>We also added a micro USB port to serve as an alternative way of powering the system. The provision to bypass the ATM an use the ESP32 directly for calculating the energy parameters was also added in this board.</p> 
+
+        </p>
+
+        <p>
+          This board retained the input ports used for the SCT013 current transformer clamp and 9V AC voltage supply.
+        </p>
+        
+        <img src="3D_2.PNG" alt="Second iteration of board" height="300">      
+        <img src="atm_esp_result.jpeg" alt="First iteration of board" style="position: absolute; left: 380px;"height="300">
+
+        <br>
+        <br>
+        <br>
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Search Widget
+        <div class="card my-4">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-append">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Blogs</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">ATM90E26</a>
+                  </li>
+                  <li>
+                    <a href="#">Node-RED</a>
+                  </li>
+                  <li>
+                    <a href="#">Bootstrap 4</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">JavaScript</a>
+                  </li>
+                  <li>
+                    <a href="#">CSS</a>
+                  </li>
+                  <li>
+                    <a href="#">Tutorials</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Widget -->
+        <!-- <div class="card my-4">
+          <h5 class="card-header">Side Widget</h5>
+          <div class="card-body">
+            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+          </div>
+        </div> -->
+
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Solar Surveil 2021</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
