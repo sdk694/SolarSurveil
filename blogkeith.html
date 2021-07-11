@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>WLR089U0 - Keith Barnes</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {
+      height: 550px
+    }
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: auto;
+      position: relative;
+    }
+
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {
+        height: auto;
+      }
+    }
+
+    /*!
+                * Start Bootstrap - Blog Home (https://startbootstrap.com/template/blog-home)
+                * Copyright 2013-2020 Start Bootstrap
+                * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-blog-home/blob/master/LICENSE)
+                */
+    body {
+      padding-top: 56px;
+    }
+
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark  fixed-top" style="background-color: #173f5f;">
+    <div class="container">
+      <a href="" class="pull-left"><img src="solarsurveiltransparent.png" alt="" height="40px"
+          style="margin-right: 12px; margin-top: 2px;"></a>
+      <a class="navbar-brand" href="resources.html">Resources</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="resources.html">Back to resources
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
+
+        <!-- Title -->
+        <h1 class="mt-4">Solar PV AC and DC Energy Monitoring using WLR089 LoRaWAN module</h1>
+
+        <!-- Author -->
+        <p class="lead">
+          by
+          <a href="https://www.linkedin.com/in/kth-barnes/" target="_blank">Keith Barnes</a>
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p>Posted on June 06, 2021</p>
+
+        <hr>
+
+        <div align="justify">
+          <!-- Post Content -->
+          <p class="lead"> Hello, fellow energy enthusiasts! I am glad you are here to learn more about solar energy and
+            remote monitoring systems. In this article, we are going to start by understanding what a remote monitoring
+            system is? what are its benefits? and gradually build up to our solution. We'll then move onto the different
+            components involved in our solution and finally integrate all our componenets on a single PCB and test out
+            our system.
+          </p>
+          <hr>
+          <h2>Why use Remote monitoring system (RMS)? </h2>
+
+          <p>
+            Remote monitoring systems enable us to receive specific data about an object which might not be physically
+            close to us.</p>
+
+
+          <p>
+            Let's take the example of a solar RMS. Normally, we would need to manually check the solar panel voltage to
+            make sure the system is in working order.
+            However, installing a system that would extract these values for us and periodically transmit the data
+            wirelessly to smartphone would aid us significantly and reduce the strain of physically monitoring the
+            parameters of our solar system.</p>
+
+          <p>
+            The data gathered by the system would help is in analysing the system's behaviour and
+            allow to detect faults in our system. In addition to this, the data gathered would help
+            us visualize and compare the daily electricity generation vs the consumption and hence encourage us to be
+            more energy efficient by cutting down wasteful consumption of electricity.
+          </p>
+          <hr>
+          <h2>Disadvantages of Traditional RMS:</h2>
+          <p>
+            The data transmission medium is an important aspect of RMS. While in some use cases transmitting data via
+            wired connections would be feasible, most RMS employ the use of various wireless transmission methods to
+            transfer data to remote server. In general, outdoor RMS make use of GSM/4G technologies to transmit their
+            data.</p>
+
+          <p>
+            However, these systems would not be able to successfully transmit their data if they are out the coverage
+            area of the cellular (4G) networks. This becomes particularly evident when we move towards the more remote
+            areas of a region. Since these regions are scarcely populated, mobile operators tend to opt out of
+            installing antennas in such regions. Hence, we are forced to look at other technologies that are able to
+            overcome this hurdle.
+          </p>
+          <hr>
+          <h2>LoRaWAN: The Solution</h2>
+
+          <p>
+            We can't rely on traditional cellular networks when trying to transmit from a remote area due to the lack of
+            infrastructure in such areas. Hence, a of major challenge for us was to achieve long range communication
+            without depending on traditional cellular technologies like 4G or GSM. We accomplish by means of LoRaWAN
+            Technology.
+          </p>
+          <img src="lora_stack.png" alt="LoRaWAN tecnology Stack" width="100%">
+          <br>
+          <p>LoRaWAN is a combination of two major concepts namely LoRa and LoRaWAN. LoRa is a modulation technique for
+            data tranmission and LoRaWAN is a network protocol optimised for long range communication and low power
+            consumption. To put it in simple terms, we could say that when we combine the concepts of LoRa and LoRaWAN
+            together, we get a network that is capable of long range communication while consuming low power, and
+            at a relatively low-cost.
+          </p>
+
+          <p>I'm guessing most of you might not have heard about LoRaWAN, so I'd highly recommend you guys to go through
+            this <a href="https://lora-alliance.org/about-lorawan/" target="_blank">website</a> in order to gain a
+            better understanding of LoRaWAN and its use cases.</p>
+          <hr>
+          <h2>System Overview:</h2>
+          <p>Now that we have some pre-requisite knowledge about remote monitoring systems, we can move on
+            towards the block diagram of our system.</p>
+
+          <img src="BD.png" alt="System Block Diagram" width="100%">
+
+          <p>For this model of our PCB we wanted to monitor both the AC as well as the DC parameter of a solar system.
+            On the left hand side is the solar panel which produces DC energy, and on the right hand side we have the
+            inverter which is used to convert the DC energy stored in batteries into AC energy, which is ultimately
+            supplied to our homes. We use different types sensors to extract the values of current and voltage from
+            these devices and send it to the microcontroller.</p>
+
+          <p>At the centre of the diagram, you can see the WLR089U0 module by microchip. The WLR chip combines a 32-bit
+            microcontroller and a LoRa transceiver into a single ultra-low power module. The WLR is responsible for
+            taking the data from the various sensors, processing it and transmitting it to our remote cloud server via
+            LoRaWAN protocol.</p>
+          <hr>
+          <h2>What you'll need:</h2>
+
+          <p>Now that we have an overview of the system, lets go ahead and take a look at some of the major components
+            used in the design of our system. You can click on the component names to learn more about it.</p>
+
+          <ul>
+            <li><a href="https://ww1.microchip.com/downloads/en/DeviceDoc/70005435B.pdf" target="_blank">WLR089U0
+                Module</a> - The brain of our system. The WLR used to process data from the sensors and to
+              wirelessly trasmit the sensor values to our cloud server.</li>
+
+            <br>
+
+            <li><a href="https://learn.openenergymonitor.org/electricity-monitoring/ct-sensors/introduction"
+                target="_blank">Current Transformer</a> - used to sense the AC current.</li>
+
+            <br>
+
+            <li><a
+                href="https://learn.openenergymonitor.org/electricity-monitoring/voltage-sensing/measuring-voltage-with-an-acac-power-adapter"
+                target="_blank">Voltage Transformer</a> - used to sample the AC voltage.</li>
+
+            <br>
+
+            <li><a href="https://uk.rs-online.com/web/generalDisplay.html?id=ideas-and-advice/shunt-resistors-guide"
+                target="_blank">Shunt resistor</a> - Used to measure the DC current.</li>
+
+          </ul>
+
+          <p>Apart from these, you'll need some basic electronic components to fabricate the PCB. You can view can
+            download the BOM file <a href="https://docs.google.com/spreadsheets/d/1w_yRdwt41H_HTojr0AMlE--K1Fu0OvELOCgH0oIjIL4/edit?usp=sharing
+            " target="_blank">here.</a></p>
+          <hr>
+          <h2>Pilot Test</h2>
+          <p>Since our project was realized during the lockdown, our resources were limited. Nevertheless, we carried
+            out initial tests to verify whether we were able to read data on the ADC pin and transmit it across to our
+            server via LoRaWAN protocol.
+          </p>
+
+          <img src="TEST.png" alt="WLR Test Set-up and output" width="100%">
+
+          <br>
+          <br>
+
+          <p>For testing purposes we used the WLR Explained Kit by microchip and the pygate gateway by pycom. With this
+            setup, we were able to successfully transmit ADC readings to the network server via Lorawan protocol. The
+            network server would then forward the data onto our dashboard. The network server we used was called
+            chirpstack, you
+            can learn more about the server and how to set-up your own server <a
+              href="https://www.chirpstack.io/project/" target="_blank">here.</a></p>
+
+          <p>For testing purposes we set the sleep timer between transmissions to 10 secs. We used the 865Mhz
+            frequency band for our data transmission which is a free unlicensed ISM band in India. For added data
+            security, we implemented the OTAA activation method which is considered to be more secure compared to the
+            ABP method. <a href="https://www.thethingsindustries.com/docs/devices/abp-vs-otaa/" target="_blank">learn
+              more.</a></p>
+          <hr>
+          <h2>PCB Design and Fabrication:</h2>
+
+          <p>Now that our initial tests were successful, we were confident enough to move on to the PCB desiging stage.
+          </p>
+
+          <img src="PCB.png" alt="WLR Board 3D model" width="100%">
+          <br>
+          <br>
+          <p>The above illustration depicts the WLR Board design. This board makes use of a current transformer (A) and
+            a
+            voltage transformer (B) to sample the AC inputs and feed it to the 12-bit ADC of the WLR chip. In addition
+            to these , The board uses a DC shunt (C) to measure solar panel current. The board can be powered by an
+            on-board battery (F) as well, thus making the board independent of any external power supply.</p>
+
+          <p>Since the board would be powered by a battery for the majority of its operation time, the board's power
+            consumption becomes an important parameter . However, the WLR being an ultra-low power module, consumes very
+            little energy thus increasing our battery life by upto 75 percent when compared to the ATM90/ESP boards.
+          </p>
+
+          <p>The board is also equipped with a battery charging circuit. The battery can be charged Via a micro-usb
+            cable (D) or a mini-solar panel (E) mounted onto the exterior of the PCB case. In the unfortunate case that
+            the battery does run out of charge, We can power it via a micro-USB adapter or a power bank, and as long as
+            we are suppling enough current, we'll be able to power the circuit as well as charge the batteries
+            simultaneously.</p>
+
+          <p>This board was designed using <a href="https://www.kicad.org/" target="_blank">KiCAD</a>, an open source
+            PCB designing software. The <a
+              href="https://drive.google.com/file/d/1IYO6J1IDIcgGnZwwRetTOnh1bf9SOe1R/view?usp=sharing"
+              target="blank">schematic file</a> highlights each section of the PCB and making it easy to
+            identify and understand the working of the different components involved. After going through the schematic
+            you can choose to edit and alter the PCB layout or alternatively,
+            you could directly use the gerber file to print the PCBs using various online PCB fabricators. You can click
+            on the button below to view the KiCAD file on Github</p>
+
+          <a href="https://github.com/kthbarnes/LoRa-PV-RMS-SolarSurveil/tree/main/PCB_WLR089U0_Board" target="blank"  class="btn"
+            style="background-color: #3caea3 ; color: white; margin-bottom: 10px;">View on Github</a>
+          <br>  
+          <div class="card">
+            <div class="card-body bg-light">
+              <p>Note: This website is currently undergoing maintenance. Depending on the time of viewing this blog,
+                you may find that the Github links are broken. In such case we request you to be patient,the files will
+                be updated soon.</p>
+            </div>
+          </div>
+          <hr>
+          <h2>Firmware:</h2>
+
+          <p>Once you have the PCB with all the components soldered onto it, you can proceed to upload the firmware onto
+            the controller.</p>
+
+          <p>
+            The software for the WLR was developed using the <a
+              href="https://www.microchip.com/en-us/development-tools-tools-and-software/microchip-studio-for-avr-and-sam-devices"
+              target="blank">Microchip studio IDE.</a>
+          </p>
+
+          <p>You can view the firmware below</p>
+
+          <a href="https://github.com/kthbarnes/WLR_Board/tree/master/WLR_FIRMWARE" target="blank" class="btn"
+            style="background-color: #3caea3 ; color: white; margin-bottom: 10px;">View Firmware</a>
+          <div class="card">
+            <div class="card-body bg-light">
+              <p>Note: This website is currently undergoing maintenance. Depending on the time of viewing this blog,
+                you may find that the Github links are broken. In such case we request you to be patient,the files will
+                be updated soon.</p>
+            </div>
+          </div>
+          <br>
+          <h6>Thanks for reading! Do share this article with those you think would appreaciate it. Head over to the
+            <a href="http://solarsurveildbit.in/resources.html">resources tab</a> to learn about other aspects of our project. </h6>
+          
+          <hr>  
+        </div>
+
+
+<!-- 
+        <img class="img-fluid rounded" src="restapi.PNG" alt=""> -->
+
+        <br>
+        <br>
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Search Widget
+        <div class="card my-4">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-append">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Blogs</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">ATM90E26</a>
+                  </li>
+                  <li>
+                    <a href="#"></a>
+                  </li>
+                  <li>
+                    <a href="#">Freebies</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">JavaScript</a>
+                  </li>
+                  <li>
+                    <a href="#">CSS</a>
+                  </li>
+                  <li>
+                    <a href="#">Tutorials</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Widget -->
+        <!-- <div class="card my-4">
+          <h5 class="card-header">Side Widget</h5>
+          <div class="card-body">
+            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+          </div>
+        </div> -->
+
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Solar Surveil 2021</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
