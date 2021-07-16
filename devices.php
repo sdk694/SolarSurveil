@@ -152,7 +152,7 @@ if(array_key_exists("email",$_SESSION)){
                     <!-- pageheader  -->
                     <!-- ============================================================== -->
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <div class="card">
                                 <div class="container " style="height: 140px;">
                                     <div class="dropdown" style="margin: 20px 0;">
@@ -234,7 +234,7 @@ if(array_key_exists("email",$_SESSION)){
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-8">
+                        <div class="col-sm-6">
                             <div class="card" style="height: 140px;">
                                 <div class="container-fluid card-body ">
                     
