@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 
 session_start();
 if(array_key_exists("email",$_COOKIE)){
@@ -17,7 +17,7 @@ if(array_key_exists("email",$_SESSION)){
    header("Location: register.php");
 
 }
-?> -->
+?>
 
 <!doctype html>
 <html lang="en">
@@ -175,7 +175,7 @@ if(array_key_exists("email",$_SESSION)){
                                         //   console.log(dataf)  
                                             
                                           
-                                          fetch("https://nodered.solarsurveildbit.in/nodeid")
+                                          fetch("https://nodered.dblabs.in/nodeid")
                                           .then(response => response.json())
                                           .then(data => {
                                           // console.log(data)
@@ -197,7 +197,7 @@ if(array_key_exists("email",$_SESSION)){
                                           for(var i =0 ; i < nodename.length; i++){
                                             var optn = nodename[i];
                                             var el = document.createElement("a");
-                                            el.href = "devices.php?node=" +optn;
+                                            el.href = "devices.html?node=" +optn;
                                             el.innerHTML = optn;
                                             el.className = "dropdown-item";
                                             down.appendChild(el);
@@ -253,54 +253,149 @@ if(array_key_exists("email",$_SESSION)){
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <div class="card d-flex justify-content-center" >
                                 <div class="card-body">
                                     <h4> Readings</h4>
-                                    <div class="alert border-dark" role="alert" style="  background-color: #d4f3f0;">
+                                    <div style="display: flex;">
+                                      <div class="alert border-dark col-sm-4" role="alert" style="  background-color: #d4f3f0;">
                                         <div style="display: block;">
                                             <div class="text-dark" style="font-size: 15px;">
-                                                Energy
+                                                Voltage RMS AC
                                             </div>
-                                            <div style="font-size: 25px; color: black;">
-                                                 <span id="energy"></span><span> KWh</span>
+                                            <div style="font-size: 15px; color: black;font-weight: bold;">
+                                                <span id="Common_VrmsAC"></span><span> V</span>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="alert border-dark col-sm-4" role="alert" style="  background-color: #d4f3f0; margin-left: 10px;">
+                                        <div style="display: block;">
+                                            <div class="text-dark" style="font-size: 15px;">
+                                                Current RMS AC
+                                            </div>
+                                            <div style="font-size: 15px; color: black;font-weight: bold;">
+                                                <span id="Common_IrmsAC"></span><span> A</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="alert border-dark" role="alert" style="  background-color: #d4f3f0;">
-                                        <div style="display: block;">
-                                            <div class="text-dark" style="font-size: 15px;">
-                                                Power
-                                            </div>
-                                            <div style="font-size: 25px; color: black;">
-                                              <span id="power"></span><span> W</span>
+                                    <div class="alert border-dark " role="alert" style="  background-color: #d4f3f0; margin-left: 10px;">
+                                      <div style="display: block;">
+                                          <div class="text-dark" style="font-size: 15px;">
+                                             Apparent Power AC 
+                                          </div>
+                                          <div style="font-size: 15px; color: black;font-weight: bold;">
+                                            <span id="Common_appPowAC"></span><span> W</span>
+                                          </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                    <div style="display: flex;">
+
+                                        <div class="alert border-dark col-sm-4" role="alert" style="  background-color: #d4f3f0;">
+                                          <div style="display: block;">
+                                              <div class="text-dark" style="font-size: 15px;">
+                                                 Real Power AC 
+                                              </div>
+                                              <div style="font-size: 15px; color: black;font-weight: bold;">
+                                                <span id="Common_realPowAC"></span><span> W</span>
+                                              </div>
+                                          </div>
+                                          </div>
+                                          <div class="alert border-dark col-sm-4" role="alert" style="  background-color: #d4f3f0; margin-left: 10px;">
+                                            <div style="display: block;">
+                                                <div class="text-dark" style="font-size: 15px;">
+                                                    Energy (only AC node)
+                                                </div>
+                                                <div style="font-size: 15px; color: black; font-weight: bold;">
+                                                     <span id="AC_EnergykWh"></span><span> kWh</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="alert border-dark" role="alert" style="  background-color: #d4f3f0;">
-                                        <div style="display: block;">
-                                            <div class="text-dark" style="font-size: 15px;">
-                                                Voltage
-                                            </div>
-                                            <div style="font-size: 25px; color: black;">
-                                                <span id="voltage"></span><span> V</span>
-                                            </div>
+                                        <div class="alert border-dark" role="alert" style="  background-color: #d4f3f0; margin-left: 10px;">
+                                          <div style="display: block;">
+                                              <div class="text-dark" style="font-size: 15px;">
+                                                  Voltage DC (only solar node)
+                                              </div>
+                                              <div style="font-size: 15px; color: black;font-weight: bold;">
+                                                  <span id="Solar_Vdc"></span><span> V</span>
+                                              </div>
+                                          </div>
                                         </div>
                                     </div>
-                                    <div class="alert border-dark" role="alert" style="  background-color: #d4f3f0;">
+                                    <div style="display: flex;">
+                                      <div class="alert border-dark col-sm-4" role="alert" style="  background-color: #d4f3f0;">
                                         <div style="display: block;">
                                             <div class="text-dark" style="font-size: 15px;">
-                                                Current
+                                                Current DC (only solar node)
                                             </div>
-                                            <div style="font-size: 25px; color: black;">
-                                                <span id="current"></span><span> A</span>
+                                            <div style="font-size: 15px; color: black; font-weight: bold;">
+                                                <span id="Solar_Idc"></span><span> A</span>
                                             </div>
                                         </div>
+                                      </div>
+                                      <div class="alert border-dark col-sm-4" role="alert" style="  background-color: #d4f3f0; margin-left: 10px;">
+                                        <div style="display: block;">
+                                            <div class="text-dark" style="font-size: 15px;">
+                                                Power generated DC (only solar node)
+                                            </div>
+                                            <div style="font-size: 15px; color: black; font-weight: bold;">
+                                                <span id="Solar_PowGen"></span><span> W</span>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="alert border-dark" role="alert" style="  background-color: #d4f3f0;  margin-left: 10px;">
+                                        <div style="display: block;">
+                                            <div class="text-dark" style="font-size: 15px;">
+                                                RSSI of uplink (only solar node)
+                                            </div>
+                                            <div style="font-size: 15px; color: black; font-weight: bold;">
+                                                <span id="Solar_RSSI"></span><span> dB</span>
+                                            </div>
+                                        </div>
+                                      </div>
                                     </div>
+                                    <div style="display: flex;">
+
+                                      <div class="alert border-dark col-sm-4" role="alert" style="  background-color: #d4f3f0;">
+                                        <div style="display: block;">
+                                            <div class="text-dark" style="font-size: 15px;">
+                                                SNR of uplink (only solar node)
+                                            </div>
+                                            <div style="font-size: 15px; color: black; font-weight: bold;">
+                                                <span id="Solar_SNR"></span><span> </span>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="alert border-dark col-sm-4" role="alert" style="  background-color: #d4f3f0;  margin-left: 10px;">
+                                        <div style="display: block;">
+                                            <div class="text-dark" style="font-size: 15px;">
+                                                Data rate of uplink (only solar node)
+                                            </div>
+                                            <div style="font-size: 15px; color: black; font-weight: bold;">
+                                                <span id="Solar_DR"></span><span> </span>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="alert border-dark" role="alert" style="  background-color: #d4f3f0; margin-left: 10px;">
+                                        <div style="display: block;">
+                                            <div class="text-dark" style="font-size: 15px;">
+                                               Battery voltage of solar node
+                                            </div>
+                                            <div style="font-size: 15px; color: black; font-weight: bold;">
+                                                <span id="Solar_battV"></span><span> V</span>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div style="display: flex;">
+
+                                    </div>
+                                    
+
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-8">
+                        <div class="col-sm-6">
                           <div class="card" style="height: 486px;">
                             <div class="card-body">
                                 <h4 class=" bg-white text-dark"> Location of the node</h4>
@@ -332,41 +427,66 @@ if(array_key_exists("email",$_SESSION)){
                         var nodename = url.searchParams.get("node");
                         // console.log(nodename);
 
-                        fetch("https://nodered.solarsurveildbit.in/nodedata")
+                        fetch("https://nodered.dblabs.in/nodedata")
                         .then(response => response.json())
                         .then(data => {
-                            // console.log(data)
+                            console.log(data)
                             var time = []
-                            var energy = []
-                            var power = []
-                            var voltage = []
-                            var current = []
+                            var Common_VrmsAC = []
+                            var Common_IrmsAC = []
+                            var Common_appPowAC = []
+                            var Common_realPowAC = []
+                            var AC_EnergykWh = []
+                            var Solar_Vdc = []
+                            var Solar_Idc = []
+                            var Solar_PowGen = []
+                            var Solar_RSSI = []
+                            var Solar_SNR = []
+                            var Solar_DR = []
+                            var Solar_battV = []
 
 
                             var nodedeatils = [];
 
                             for(var i = 0; i< data.results[0].series[0].values.length ; i++){
-                              if(data.results[0].series[0].values[i][5] == nodename){
+                              if(data.results[0].series[0].values[i][13] == nodename){
                                 nodedeatils.push(data.results[0].series[0].values[i]);
                               }
                             }
 
-                            // console.log(nodedeatils)
+                            console.log(nodedeatils)
                             nodedeatils.forEach(element => {
                                       time.push(element[0])  
-                                      energy.push(element[1])
-                                      power.push(element[2])
-                                      voltage.push(element[3])
-                                      current.push(element[4])
+                                      Common_VrmsAC.push(element[1])
+                                      Common_IrmsAC.push(element[2])
+                                      Common_appPowAC.push(element[3])
+                                      Common_realPowAC.push(element[4])
+                                      AC_EnergykWh.push(element[5])
+                                      Solar_Vdc.push(element[6])
+                                      Solar_Idc.push(element[7])
+                                      Solar_PowGen.push(element[8])
+                                      Solar_RSSI.push(element[9])
+                                      Solar_SNR.push(element[10])
+                                      Solar_DR.push(element[11])
+                                      Solar_battV.push(element[12])
                                     });
 
 
 
-                            var energyl  = energy[energy.length -1]
-                            var powerl   = power[power.length -1]
-                            var voltagel = voltage[voltage.length -1]
-                            var currentl = current[current.length -1]
-                            var timel = time[time.length -1]      
+                            var Common_VrmsACl  = Common_VrmsAC[Common_VrmsAC.length -1]
+                            var Common_IrmsACl   = Common_IrmsAC[Common_IrmsAC.length -1]
+                            var Common_appPowACl = Common_appPowAC[Common_appPowAC.length -1]
+                            var Common_realPowACl = Common_realPowAC[Common_realPowAC.length -1]
+                            var AC_EnergykWhl = AC_EnergykWh[AC_EnergykWh.length -1]
+                            var Solar_Vdcl = Solar_Vdc[Solar_Vdc.length -1]
+                            var Solar_Idcl = Solar_Idc[Solar_Idc.length -1]
+                            var Solar_PowGenl = Solar_PowGen[Solar_PowGen.length -1]
+                            var Solar_RSSIl = Solar_RSSI[Solar_RSSI.length -1]
+                            var Solar_SNRl = Solar_SNR[Solar_SNR.length -1]
+                            var Solar_DRl = Solar_DR[Solar_DR.length -1]
+                            var Solar_battVl = Solar_battV[Solar_battV.length -1]  
+                            var timel = time[time.length -1] 
+                            unit1 =  AC_EnergykWhl
                             
 
                             
@@ -377,13 +497,22 @@ if(array_key_exists("email",$_SESSION)){
 
                             //ternary operator  condition ? true : false;
 
-                            document.getElementById("energy").innerHTML   = energyl !== undefined ? energyl : "";
-                            document.getElementById("power").innerHTML    = powerl  !== undefined ? powerl : "";
-                            document.getElementById("voltage").innerHTML  = voltagel  !== undefined ? voltagel : "";
-                            document.getElementById("current").innerHTML  = currentl  !== undefined ? currentl : "";
+                            document.getElementById("Common_VrmsAC").innerHTML   = Common_VrmsACl !== undefined ? Common_VrmsACl : "";
+                            document.getElementById("Common_IrmsAC").innerHTML    = Common_IrmsACl  !== undefined ? Common_IrmsACl : "";
+                            document.getElementById("Common_appPowAC").innerHTML  = Common_appPowACl  !== undefined ? Common_appPowACl : "";
+                            document.getElementById("Common_realPowAC").innerHTML  = Common_realPowACl  !== undefined ? Common_realPowACl : "";
+                            document.getElementById("AC_EnergykWh").innerHTML   = AC_EnergykWhl !== undefined ? AC_EnergykWhl : "";
+                            document.getElementById("Solar_Vdc").innerHTML   = Solar_Vdcl !== undefined ? Solar_Vdcl : "";
+                            document.getElementById("Solar_Idc").innerHTML    = Solar_Idcl  !== undefined ? Solar_Idcl : "";
+                            document.getElementById("Solar_PowGen").innerHTML  = Solar_PowGenl  !== undefined ? Solar_PowGenl : "";
+                            document.getElementById("Solar_RSSI").innerHTML  = Solar_RSSIl  !== undefined ? Solar_RSSIl : "";
+                            document.getElementById("Solar_SNR").innerHTML   = Solar_SNRl !== undefined ? Solar_SNRl : "";
+                            document.getElementById("Solar_DR").innerHTML    = Solar_DRl  !== undefined ? Solar_DRl : "";
+                            document.getElementById("Solar_battV").innerHTML  = Solar_battVl  !== undefined ? Solar_battVl : "";
                             document.getElementById("nodename").innerHTML = nodename  !== null ? nodename : "No node selected";
                             document.getElementById("lastactive").innerHTML = timel  !== undefined ? new Date(timel).toLocaleString() : "";
-                            
+                            document.getElementById('totenergy').innerHTML = AC_EnergykWhl;
+                            document.getElementById('totunits').innerHTML = AC_EnergykWhl;
 
 
                         })
@@ -621,7 +750,7 @@ if(array_key_exists("email",$_SESSION)){
                         <div class="col-sm-12">
                           <div class="card ">
                             <div class="card-body ">
-                              <h4 class="card-title ">Power Generated</h4>
+                              <h4 class="card-title ">Power Generated (for Solar Node only)</h4>
                               <br>
                               <div class="shadow" id="generated"></div>
                               <script>
@@ -632,7 +761,7 @@ if(array_key_exists("email",$_SESSION)){
                                 var nodename = url.searchParams.get("node");
                                 // console.log(nodename);
 
-                                fetch(" https://nodered.solarsurveildbit.in/nodedata")
+                                fetch("https://nodered.dblabs.in/nodedata")
                                   .then(response => response.json())
                                   .then(data => {
                                     // console.log(data)
@@ -643,7 +772,7 @@ if(array_key_exists("email",$_SESSION)){
                                     var nodedeatils = [];
 
                                       for(var i = 0; i< data.results[0].series[0].values.length ; i++){
-                                        if(data.results[0].series[0].values[i][5] == nodename){
+                                        if(data.results[0].series[0].values[i][13] == nodename){
                                           nodedeatils.push(data.results[0].series[0].values[i]);
                                         }
                                       }
@@ -656,7 +785,7 @@ if(array_key_exists("email",$_SESSION)){
                                     // document.getElementById("debug").innerHTML = JSON.stringify(data.series[0].values)
                                     nodedeatils.forEach(element => {
                                       x.push(element[0])
-                                      y.push(element[6])
+                                      y.push(element[8])
                                     });
                                     
                                     var sum = y.reduce(function(a,b) {
@@ -704,7 +833,8 @@ if(array_key_exists("email",$_SESSION)){
                         <div class="col-sm-12">
                           <div class="card">
                             <div class="card-body">
-                              <h4 class="card-title">Power Consumed</h4>
+                              <h4 class="card-title">Power Consumed (for AC Node) OR  Power Output of Inverter (for Solar Node)
+                              </h4>
                               <br>
                               <div class="shadow" id="consumed"></div>
                               <script>
@@ -715,7 +845,7 @@ if(array_key_exists("email",$_SESSION)){
                                 var nodename = url.searchParams.get("node");
                                 // console.log(nodename);
 
-                                fetch(" https://nodered.solarsurveildbit.in/nodedata")
+                                fetch("https://nodered.dblabs.in/nodedata")
                                   .then(response => response.json())
                                   .then(data => {
                                     // console.log(data)
@@ -725,7 +855,7 @@ if(array_key_exists("email",$_SESSION)){
                                     var nodedeatils = [];
 
                                       for(var i = 0; i< data.results[0].series[0].values.length ; i++){
-                                        if(data.results[0].series[0].values[i][5] == nodename){
+                                        if(data.results[0].series[0].values[i][13] == nodename){
                                           nodedeatils.push(data.results[0].series[0].values[i]);
                                         }
                                       }
@@ -733,9 +863,9 @@ if(array_key_exists("email",$_SESSION)){
                                       // console.log(nodedeatils)
                                       nodedeatils.forEach(element => {
                                                 x.push(element[0])  
-                                                y.push(element[2])
+                                                y.push(element[3])
                                               });
-
+                                      //if you want to add real power just make 3 as 4
 
                                       // document.querySelector("#debug").innerHTML =  data
                                       // document.getElementById("debug").innerHTML = JSON.stringify(data.series[0].values)
@@ -787,7 +917,7 @@ if(array_key_exists("email",$_SESSION)){
                                 var nodename = url.searchParams.get("node");
                                 // console.log(nodename);
 
-                                fetch(" https://nodered.solarsurveildbit.in/nodedata")
+                                fetch(" https://nodered.dblabs.in/nodedata")
                                   .then(response => response.json())
                                   .then(data => {
                                     // console.log(data)
@@ -802,7 +932,7 @@ if(array_key_exists("email",$_SESSION)){
                                     var nodedeatils = [];
 
                                       for(var i = 0; i< data.results[0].series[0].values.length ; i++){
-                                        if(data.results[0].series[0].values[i][5] == nodename){
+                                        if(data.results[0].series[0].values[i][13] == nodename){
                                           nodedeatils.push(data.results[0].series[0].values[i]);
                                         }
                                       }
@@ -810,8 +940,8 @@ if(array_key_exists("email",$_SESSION)){
                                       // console.log(nodedeatils)
                                       nodedeatils.forEach(element => {
                                                 x.push(element[0])  
-                                                y.push(element[2])
-                                                z.push(element[6])
+                                                y.push(element[3])
+                                                z.push(element[8])
                                               });
 
                                     // var sum = y.reduce(function(a,b) {
@@ -864,7 +994,7 @@ if(array_key_exists("email",$_SESSION)){
                         <div class="col-sm-12">
                           <div class="card">
                             <div class="card-body">
-                              <h4 class="card-title">Energy Consumed</h4>
+                              <h4 class="card-title">Energy Consumed (for AC Node only)</h4>
                               <br>
                               <div class="shadow" id="econsumed"></div>
                               <script>
@@ -875,7 +1005,7 @@ if(array_key_exists("email",$_SESSION)){
                                 var nodename = url.searchParams.get("node");
                                 // console.log(nodename);
 
-                                fetch(" https://nodered.solarsurveildbit.in/nodedata")
+                                fetch(" https://nodered.dblabs.in/nodedata")
                                   .then(response => response.json())
                                   .then(data => {
                                     // console.log(data)
@@ -886,7 +1016,7 @@ if(array_key_exists("email",$_SESSION)){
                                     var nodedeatils = [];
 
                                     for(var i = 0; i< data.results[0].series[0].values.length ; i++){
-                                      if(data.results[0].series[0].values[i][5] == nodename){
+                                      if(data.results[0].series[0].values[i][13] == nodename){
                                         nodedeatils.push(data.results[0].series[0].values[i]);
                                       }
                                     }
@@ -894,16 +1024,14 @@ if(array_key_exists("email",$_SESSION)){
                                     // console.log(nodedeatils)
                                     nodedeatils.forEach(element => {
                                               x.push(element[0])  
-                                              y.push(element[1])
+                                              y.push(element[5])
                                             });
-                                     sum1 = y.reduce(function(a,b) {
-                                      return  (a + b);
-                                    },0);
-                                     unit1 = sum1;
-                                    var avg = (sum1 / y.length)
+                                    //  sum1 = y.reduce(function(a,b) {
+                                    //   return  (a + b);
+                                    // },0);
+                                    //  unit1 = sum1;
+                                    // var avg = (sum1 / y.length)
                                     // console.log(sum)
-                                    document.getElementById('totenergy').innerHTML = sum1.toFixed(2);
-                                    document.getElementById('totunits').innerHTML = unit1.toFixed(4);
 
 
                                     // parseFloat(document.getElementById("rateperunit").value) ;
@@ -934,9 +1062,11 @@ if(array_key_exists("email",$_SESSION)){
 
                                   function rateupdate(){
                                     console.log(unit1)
-                                    console.log(rate1)
+                                    
                                     rate1 = parseFloat(document.getElementById("rateperunit").value) ;
+                                    console.log(rate1)
                                     var billgen = rate1 * unit1;
+                                    console.log(billgen)
                                     document.getElementById("billgenerated").innerHTML = billgen.toFixed(4);
                                   }
 

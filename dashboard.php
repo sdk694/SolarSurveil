@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 
     session_start();
     if(array_key_exists("email",$_COOKIE)){
@@ -17,7 +17,7 @@
     header("Location: register.php");
 
     }
-?> -->
+?>
 
 <!doctype html>
 <html lang="en">
@@ -165,7 +165,7 @@
                             var totnodes = 0;
 
 
-                            fetch("https://nodered.solarsurveildbit.in/nodeid")
+                            fetch("https://nodered.dblabs.in/nodeid")
                             .then(response => response.json())
                             .then(data => {
                                 console.log(data);
@@ -177,29 +177,34 @@
                                 });
                                 console.log(nodeDetails);
 
-                                fetch("https://nodered.solarsurveildbit.in/nodedata")
+                                fetch("https://nodered.dblabs.in/nodedata")
                                 .then(response => response.json())
                                 .then(data => {
                                     console.log(data);
                                     data.results[0].series[0].values.forEach(nodeData => {
                                     
                                         var formattedData = {
-                                           time: nodeData[0],
-                                           energy: nodeData[1],
-                                           power: nodeData[2],
-                                           voltage: nodeData[3],
-                                           current: nodeData[4],
-                                           pgen: nodeData[6],
-                                           rsi: nodeData[7], 
-                                           snr: nodeData[8],
+                                             time: nodeData[0],
+                                             Common_VrmsAC : nodeData[1],
+                                             Common_IrmsAC : nodeData[2],
+                                             Common_appPowAC : nodeData[3],
+                                             Common_realPowAC : nodeData[4],
+                                             AC_EnergykWh : nodeData[5],
+                                             Solar_Vdc : nodeData[6],
+                                             Solar_Idc : nodeData[7],
+                                             Solar_PowGen : nodeData[8],
+                                             Solar_RSSI : nodeData[9],
+                                             Solar_SNR : nodeData[10],
+                                             Solar_DR : nodeData[11],
+                                             Solar_battV : nodeData[12]
 
                                         }
-                                        nodeDetails[nodeData[5]].push(formattedData);
+                                        nodeDetails[nodeData[13]].push(formattedData);
                                     });
                                     // console.log(nodeDetails);
                                     
                                     nodename.forEach(node => {
-                                    if(nodeDetails[node][nodeDetails[node].length -1].voltage > 200 )
+                                    if(nodeDetails[node][nodeDetails[node].length -1].Common_IrmsAC > 0.1 )
                                         activenodes = activenodes + 1;
                                     else
                                         inactivenodes = inactivenodes + 1;
